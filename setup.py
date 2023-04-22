@@ -1,8 +1,9 @@
 from typing import List
 from setuptools import find_packages, setup
-from os import path
+import os
 
 HYPHEN_E_DOT='-e .'
+REQUIREMENTS_FILEPATH = os.path.join(os.getcwd(),"requirements.txt")
 
 def get_requirements(file_path:str)->List[str]:
     requirements = list()
@@ -20,6 +21,6 @@ setup (
     version='0.0.1',
     author='Viresh',
     author_email='viresh.raj.sah@gmail.com',
-    install_requires=get_requirements('C:\Users\U1143589\Learning\iNeuron\ML\End2end_project\requirements.txt'),
+    install_requires=get_requirements(REQUIREMENTS_FILEPATH),
     packages=find_packages()
 )

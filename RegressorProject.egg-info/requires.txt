@@ -5,7 +5,3 @@ matplotlib
 logger
 seaborn
 scikit-learn
-datetime
-typing
-logging
--e .
