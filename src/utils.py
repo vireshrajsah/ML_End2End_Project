@@ -13,6 +13,9 @@ def read_any():
     pass
 
 def save_object(file_path, obj):
+    '''
+    Takes object, destination path and serializes the object in a pickle file in the destination path
+    '''
     try:
         dir_path = os.path.dirname(file_path)
         os.makedirs(dir_path, exist_ok=True)
@@ -24,6 +27,9 @@ def save_object(file_path, obj):
         raise CustomException(e,sys)
     
 def model_score(true,pred):
+    '''
+    Takes true value and model predicted values and returns model scores mse, mae and r2 score
+    '''
     try:
         mse=mean_squared_error(true,pred)
         mae=mean_absolute_error(true,pred)
@@ -34,8 +40,11 @@ def model_score(true,pred):
         raise CustomException(e, sys)
 
 def model_build_predict(algorithm, X_train, X_test, y_train):
+    '''
+    Takes algorithm name, train and test values and returns predicted values as well as intercep and coefficient
+    '''
     try:
-        model = algorithm()
+        model = algorithm
         model.fit(X_train,y_train)
         y_pred_train=model.predict(X_train) # prediction on train
         y_pred_test= model.predict(X_test) # prediction on test
@@ -49,6 +58,9 @@ def model_build_predict(algorithm, X_train, X_test, y_train):
         raise CustomException(e, sys)
 
 def evaluate_model(xtrain, xtest, ytrain, ytest, algos:dict)->dict:
+    '''
+    Takes train and test data sets along with dictionary of algorithm_name: algorithm(obj), returns dictionary of algorithm:r2 score
+    '''
     try:
         logging.info("Initiate models evaluation in evaluate_models at utils.py")
         results = dict()
@@ -67,6 +79,9 @@ def evaluate_model(xtrain, xtest, ytrain, ytest, algos:dict)->dict:
         raise CustomException(e, sys)
 
 def print_report(model_evaluation_report, best_model_name, best_model_score):
+    '''
+    Takes model:r2 score dictionary, best model name and best model score and prints model evaluation report.
+    '''
     try:
         # Model evaluation report
         HEADER = 'MODEL EVALUATION REPORT'
@@ -81,3 +96,15 @@ def print_report(model_evaluation_report, best_model_name, best_model_score):
     except Exception as e:
         logging.info("Exception occured in print_report at utils.py")
         raise CustomException(e, sys)
+    
+def load_object(file_path):
+    '''
+    Loads pickle file and returns the object
+    '''
+    try:
+        with open(file_path, 'rb') as file_obj:
+            pickled_object = pickle.load(file_obj)
+            return pickled_object
+    except Exception as e:
+        logging.info("Exception occured at load_object at utils.py")
+        raise CustomException(e,sys)

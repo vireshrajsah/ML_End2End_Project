@@ -7,5 +7,9 @@ seaborn
 scikit-learn
 datetime
 typing
+pickle
+pprint
+dataclasses
+datetime
 logging
 -e .
